@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Калькулятор оренди | Ретро Авто</title>
+    <meta name="description" content="Розрахуйте орієнтовну вартість оренди ретро авто: оберіть авто, тривалість та додаткові послуги." />
+    <link rel="icon" type="image/png" href="assets/images/logo-mark.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="min-h-screen bg-stone-100 text-stone-900 antialiased">
+    <main class="mx-auto max-w-4xl px-4 py-8 sm:px-6">
+      <header class="mb-6 flex items-center gap-3">
+        <img src="assets/images/logo-mark.png" alt="" width="44" height="44" class="h-11 w-11" />
+        <div>
+          <h1 class="font-serif text-2xl font-bold sm:text-3xl">Калькулятор вартості оренди</h1>
+          <p class="text-sm text-stone-600">Ретро Авто · тарифи демонстраційні</p>
+        </div>
+      </header>
+
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-5">
+        <form id="calcForm" novalidate class="space-y-5 rounded-2xl bg-white p-5 shadow md:col-span-3 sm:p-6" aria-labelledby="calc-heading">
+          <h2 id="calc-heading" class="sr-only">Параметри оренди</h2>
+
+          <div>
+            <label for="car" class="mb-1 block text-sm font-medium">Автомобіль</label>
+            <select id="car" aria-describedby="carError" aria-invalid="false"
+              class="block min-h-12 w-full rounded-lg border-2 border-stone-300 bg-white px-3 text-base focus-visible:border-amber-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-amber-700/25">
+              <option value="gaz21">ГАЗ-21 «Волга» — 2 450 грн/год</option>
+              <option value="bel_air">Chevrolet Bel Air — 3 600 грн/год</option>
+              <option value="sl280">Mercedes-Benz 280 SL — 3 200 грн/год</option>
+            </select>
+            <p id="carError" class="mt-1 hidden text-sm text-red-700" role="alert"></p>
+          </div>
+
+          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <div>
+              <label for="hours" class="mb-1 block text-sm font-medium">Тривалість, годин (2–24)</label>
+              <input id="hours" type="text" inputmode="numeric" value="2" autocomplete="off" aria-describedby="hoursError" aria-invalid="false"
+                class="block min-h-12 w-full rounded-lg border-2 border-stone-300 px-3 text-base focus-visible:border-amber-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-amber-700/25" />
+              <p id="hoursError" class="mt-1 hidden text-sm text-red-700" role="alert"></p>
+            </div>
+            <div>
+              <label for="km" class="mb-1 block text-sm font-medium">Виїзд за місто, км (0–500)</label>
+              <input id="km" type="text" inputmode="numeric" value="0" autocomplete="off" aria-describedby="kmError" aria-invalid="false"
+                class="block min-h-12 w-full rounded-lg border-2 border-stone-300 px-3 text-base focus-visible:border-amber-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-amber-700/25" />
+              <p id="kmError" class="mt-1 hidden text-sm text-red-700" role="alert"></p>
+            </div>
+          </div>
+
+          <fieldset class="space-y-3">
+            <legend class="mb-1 text-sm font-medium">Додатково</legend>
+            <label for="chauffeur" class="flex min-h-12 items-center gap-3 rounded-lg border border-stone-200 px-3">
+              <input id="chauffeur" type="checkbox" class="h-6 w-6 accent-amber-700" />
+              <span class="text-sm">Водій (+500 грн/год)</span>
+            </label>
+            <label for="decor" class="flex min-h-12 items-center gap-3 rounded-lg border border-stone-200 px-3">
+              <input id="decor" type="checkbox" class="h-6 w-6 accent-amber-700" />
+              <span class="text-sm">Святкове оформлення (+1 200 грн)</span>
+            </label>
+          </fieldset>
+
+          <div>
+            <label for="promo" class="mb-1 block text-sm font-medium">Промокод</label>
+            <input id="promo" type="text" autocomplete="off" maxlength="30" aria-describedby="promoMsg"
+              class="block min-h-12 w-full rounded-lg border-2 border-stone-300 px-3 text-base focus-visible:border-amber-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-amber-700/25" />
+            <p id="promoMsg" class="mt-1 text-sm" aria-live="polite"></p>
+          </div>
+
+          <button id="resetBtn" type="button"
+            class="min-h-12 rounded-lg border-2 border-stone-300 px-5 font-semibold hover:bg-stone-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-amber-700/30">Скинути</button>
+        </form>
+
+        <aside id="result" data-state="ok" class="h-fit rounded-2xl bg-stone-900 p-5 text-stone-50 shadow md:col-span-2 sm:p-6" aria-live="polite" aria-label="Результат розрахунку">
+          <p id="summary" class="text-sm text-stone-300"></p>
+          <p id="total" class="mt-1 font-serif text-4xl font-bold text-amber-300">—</p>
+          <ul id="lines" class="mt-4 divide-y divide-stone-700 text-sm"></ul>
+          <p class="mt-4 text-xs text-stone-400">Розрахунок орієнтовний і не є публічною офертою.</p>
+        </aside>
+      </div>
+    </main>
+    <script src="js/widget.js"></script>
+  </body>
+</html>
